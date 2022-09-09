@@ -115,7 +115,7 @@ export default function MyData(props, _id) {
                                 Numer Telefonu
                             </td>
                             <td>
-                                +48 {status.phoneNumber}
+                              {status.phoneNumber}
                             </td>
                         </tr>
 

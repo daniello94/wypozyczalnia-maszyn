@@ -116,10 +116,11 @@ export default function VivesMachines(props) {
                 </h3>
                 <Error>{error}</Error>
 
-
                 <form>
                     <label>
-                        Moje Dane
+                        <span>
+                            Moje Dane
+                        </span>
 
                         <input
                             type="text"
@@ -155,7 +156,10 @@ export default function VivesMachines(props) {
 
                     </label>
 
-                    <label>Czas wynajmu
+                    <label>
+                        <span>
+                            Czas wynajmu
+                        </span>
                         <div>
                             <DatePicer
                                 selected={startDate}

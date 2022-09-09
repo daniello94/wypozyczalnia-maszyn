@@ -16,6 +16,7 @@ import SignUpEmployee from "./routes/SignUpEmployee";
 import MachinesAdd from "./routes/MachinesAdd";
 import VivesMachines from "./routes/VivesMachines";
 import VivesOrder from "./routes/VivesOrder";
+import Contact from "./routes/Contact";
 
 export default function App() {
   const [userData, setUser] = useState(
@@ -105,6 +106,15 @@ export default function App() {
             </li>
           )}
 
+          {userData && (
+            <li>
+              <Link
+                to="/contact">
+                Kontakt
+              </Link>
+            </li>
+          )}
+
           {userData && userData.user.role === viveRole() && (
             <li>
               <Link
@@ -167,10 +177,16 @@ export default function App() {
           } />
 
         <Route
+          path="/contact"
+          element={<Contact
+            dataUser={userData} />
+          } />
+
+        <Route
           path="/vivesOrder"
           element={<VivesOrder />
           } />
-          
+
         <Route path="/MyData/:id"
           element={
             <ProtectedRoute>

@@ -8,7 +8,7 @@ import Button from "../components/Button";
 
 export default function VivesOrder() {
     const [status, setStatus] = useState([]);
-    const [responseQuestion, setResponseQuestion] = useState("");
+    const [responseQuestion, setResponseQuestion] = useState('');
     const [aplicationId, setAplicationId] = useState("");
     const [oneMachinesStatus, setOneMachinesStatus] = useState({
         quanitity: "",
@@ -45,7 +45,7 @@ export default function VivesOrder() {
                 quanitity
             })
                 .then(() => {
-                    setStatus("")
+                    setStatus([])
                     oneMachines(_id)
                 })
             const oderStan = "Aktywny"
@@ -54,7 +54,7 @@ export default function VivesOrder() {
                 oderStan
             })
                 .then(() => {
-                    setStatus("")
+                    setStatus([])
                     oneMachines(_id)
 
                 })
@@ -71,7 +71,7 @@ export default function VivesOrder() {
             quanitity
         })
             .then(() => {
-                setStatus("")
+                setStatus([])
                 oneMachines(_id)
             })
         const oderStan = "Zakończony"
@@ -80,21 +80,21 @@ export default function VivesOrder() {
             oderStan
         })
             .then(() => {
-                setStatus("")
+                setStatus([])
                 oneMachines(_id)
 
             })
 
     };
 
-    function updateResponseReject (_id){
-        const oderStan ="Odzrucony"
+    function updateResponseReject(_id) {
+        const oderStan = "Odzrucony"
         axios.put('http://127.0.0.1:8080/machines/updateApplication/' + _id, {
             aplicationId,
             oderStan
         })
             .then(() => {
-                setStatus("")
+                setStatus([])
                 oneMachines(_id)
 
             })
@@ -200,27 +200,37 @@ export default function VivesOrder() {
                                                 {order.phoneNumber}
                                             </td>
                                             <td>
-                                                {moment(order.startDate).format('DD/MM/YYY')}
+                                                {moment(order.startDate).format('DD/MM/YYYY')}
                                             </td>
                                             <td>
-                                                {moment(order.endDate).format('DD/MM/YYY')}
+                                                {moment(order.endDate).format('DD/MM/YYYY')}
                                             </td>
-                                            <td>
+                                            <td
+                                                className={order.oderStan === "Aktywny" ? style.active : "" || order.oderStan === "Zakończony" ? style.finish : "" || order.oderStan === "Odzrucony" ? style.reject : "" || order.oderStan === "Oczekujący" ? style.pending : ""}>
                                                 {order.oderStan}
                                             </td>
-                                            <td className={style.updateResponse}>
-                                                <Button
-                                                    onClick={() => updateResponse(oneMachinesStatus._id)}>
-                                                    Akceptuj
-                                                </Button>
-                                                <Button
-                                                    onClick={() => updateResponseFinish(oneMachinesStatus._id)}>
-                                                    Zakończ
-                                                </Button>
-                                                <Button
-                                                    onClick={() => updateResponseReject(oneMachinesStatus._id)}>
-                                                    Odrzuć
-                                                </Button>
+                                            <td
+                                                className={style.updateResponse}>
+                                                {order.oderStan !== 'Aktywny' && order.oderStan !== 'Zakończony' && (
+                                                    <Button
+                                                        onClick={() => updateResponse(oneMachinesStatus._id)}>
+                                                        Akceptuj
+                                                    </Button>
+                                                )}
+                                                {order.oderStan !== 'Zakończony' && order.oderStan !== 'Odzrucony' && order.oderStan !== 'Oczekujący' && (
+                                                    <Button
+                                                        onClick={() => updateResponseFinish(oneMachinesStatus._id)}>
+                                                        Zakończ
+                                                    </Button>
+                                                )}
+
+                                                {order.oderStan === 'Oczekujący' && (
+                                                    <Button
+                                                        onClick={() => updateResponseReject(oneMachinesStatus._id)}>
+                                                        Odrzuć
+                                                    </Button>
+                                                )}
+
                                             </td>
                                         </tr>
 
@@ -230,10 +240,9 @@ export default function VivesOrder() {
                             })}
 
                         </tbody>
-
                     </table>
                     <Button
-                        onClick={() => setResponseQuestion("")}>
+                        onClick={() => setResponseQuestion(status)}>
                         Wróć
                     </Button>
                 </div>
@@ -315,7 +324,7 @@ export default function VivesOrder() {
                                     </td>
                                 </tr>
                                 {machine.aplication.map((order) => {
-                                 
+
                                     return (
                                         <tr key={order._id}>
                                             <td>
@@ -331,12 +340,13 @@ export default function VivesOrder() {
                                                 {order.phoneNumber}
                                             </td>
                                             <td>
-                                                {moment(order.startDate).format('DD/MM/YYY')}
+                                                {moment(order.startDate).format('DD/MM/YYYY')}
                                             </td>
                                             <td>
-                                                {moment(order.endDate).format('DD/MM/YYY')}
+                                                {moment(order.endDate).format('DD/MM/YYYY')}
                                             </td>
-                                            <td>
+
+                                            <td className={order.oderStan === "Aktywny" ? style.active : "" || order.oderStan === "Zakończony" ? style.finish : "" || order.oderStan === "Odzrucony" ? style.reject : "" || order.oderStan === "Oczekujący" ? style.pending : ""} >
                                                 {order.oderStan}
                                             </td>
                                             <td>
@@ -344,7 +354,7 @@ export default function VivesOrder() {
                                                     idObjectArray(order._id)
                                                     viveResponseQuestion(status._id)
                                                     oneMachines(machine._id)
-                                                }}>odpowiedz</Button>
+                                                }}>Odpowiedz</Button>
                                             </td>
                                         </tr>
 
