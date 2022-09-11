@@ -8,6 +8,7 @@ import {
 import React, { useState } from "react";
 import axios from "axios";
 
+import style from "./style/Menu.module.scss"
 import LoginEmpoyee from "./routes/LoginEmployee";
 import LoginClient from "./routes/LoginClient";
 import MyData from "./routes/MyData";
@@ -49,14 +50,15 @@ export default function App() {
 
   return (
     <div>
-      <nav>
+      <nav className={style.mainMenu}>
         <ul>
 
           {!userData && (
             <li>
               <Link
+                className={style.myItm}
                 to="/client">
-                Strefa Klijęenta
+                Strefa Klijenta
               </Link>
             </li>
           )}
@@ -64,6 +66,7 @@ export default function App() {
           {!userData && (
             <li>
               <Link
+                className={style.myItm}
                 to="/employee">
                 Strefa Pracownika
               </Link>
@@ -73,6 +76,7 @@ export default function App() {
           {userData && userData.user.role === 'admin' && (
             <li>
               <Link
+                className={style.myItm}
                 to="/signUpEmployee">
                 Dodaj Pracownika
               </Link>
@@ -82,6 +86,7 @@ export default function App() {
           {userData && userData.user.role === viveRole() && (
             <li>
               <Link
+                className={style.myItm}
                 to="/machinesAdd">
                 Dodaj nowy przedmiot
               </Link>
@@ -91,6 +96,7 @@ export default function App() {
           {userData && (
             <li>
               <Link
+                className={style.myItm}
                 to={`/MyData/${userData.user._id}`}>
                 Moje Dane
               </Link>
@@ -100,24 +106,25 @@ export default function App() {
           {userData && (
             <li>
               <Link
+                className={style.myItm}
                 to="/">
                 Nasze Maszyny
               </Link>
             </li>
           )}
 
-          {userData && (
             <li>
               <Link
+                className={style.myItm}
                 to="/contact">
                 Kontakt
               </Link>
             </li>
-          )}
-
+         
           {userData && userData.user.role === viveRole() && (
             <li>
               <Link
+                className={style.myItm}
                 to="/vivesOrder">
                 Zapytania
               </Link>
@@ -127,6 +134,7 @@ export default function App() {
           {userData && (
             <li>
               <Link
+                className={style.myItm}
                 to="/"
                 onClick={logOut}>
                 Wyloguj

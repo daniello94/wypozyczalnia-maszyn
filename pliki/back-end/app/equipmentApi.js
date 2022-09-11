@@ -107,7 +107,6 @@ router.put('/addOrder/:id', function (req, res) {
 });
 
 router.put('/update/:id', function (req, res) {
-    console.log(req.body);
     equipment.update(req.params.id, req.body, function (err, data) {
         if (err) {
             res.status(404);
@@ -121,8 +120,6 @@ router.put('/update/:id', function (req, res) {
 });
 
 router.put('/updateApplication/:id', function (req, res) {
-    console.log(req.params.id);
-    console.log(req.body);
     equipment.application(req.params.id, req.body, function (err, data) {
         if (err) {
             res.status(404);
