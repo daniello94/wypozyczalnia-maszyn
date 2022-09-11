@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const client = require('../app/controlelers/client.controleler');
-const employe = require('../app/controlelers/employees.controler');
 
 router.post('/signup', function (req, res) {
 
@@ -44,4 +43,32 @@ router.get('/:id', function (req, res) {
         }
     })
 });
+
+router.delete('/delate/:id', function (req, res) {
+    client.deleteClient(req.params.id, function (err, data) {
+        if (err) {
+            res.status(404);
+            res.json({
+                error: "Client not found"
+            })
+        } else {
+            res.json(data)
+        }
+    })
+});
+
+router.post('/clientAll', function (req, res) {
+    client.listClient(function (err, users) {
+        if (err) {
+            res.status(404);
+            res.json({
+                error: "Clients not found"
+            });
+        } else {
+            res.json(users)
+        }
+    })
+});
+
+
 module.exports = router;

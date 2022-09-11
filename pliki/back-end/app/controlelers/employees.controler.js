@@ -35,7 +35,7 @@ function employeeLogin(data, cb) {
         })
     })
 };
-function employyeGet(id, cb) {
+function employeeGet(id, cb) {
     Employee.findById(id).exec(function (err, user) {
         if (err) {
             cb(err)
@@ -45,9 +45,32 @@ function employyeGet(id, cb) {
     })
 };
 
+function employeesDelate(id, cb) {
+    Employee.deleteOne({ _id: id }, function (err, user) {
+        if (err) {
+            cb(err)
+        } else {
+            cb(null, user)
+        }
+    })
+};
+
+function employeeList(cb) {
+    Employee.find().lean().exec(function (err, users) {
+        if (err) {
+            cb(err)
+        } else {
+            cb(null, users)
+        }
+    })
+};
+
+
 
 module.exports = {
     addEmployee: employeesAdd,
     loginEmployee: employeeLogin,
-    getEmployee:employyeGet
+    getEmployee:employeeGet,
+    delateEmployee:employeesDelate,
+    listEmployee:employeeList
 };

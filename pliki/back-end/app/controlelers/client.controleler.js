@@ -36,6 +36,16 @@ function clientLogin(data, cb) {
     })
 };
 
+function clientDelate(id, cb) {
+    Client.deleteOne({ _id: id }, function (err, user) {
+        if (err) {
+            cb(err)
+        } else {
+            cb(null, user)
+        }
+    })
+};
+
 function clientGet(id, cb) {
     Client.findById(id).exec(function (err, user) {
         if (err) {
@@ -46,8 +56,20 @@ function clientGet(id, cb) {
     })
 };
 
+function clientList(cb) {
+    Client.find().lean().exec(function (err, users) {
+        if (err) {
+            cb(err)
+        } else {
+            cb(null, users)
+        }
+    })
+};
+
 module.exports = {
     addClient: clientAdd,
     loginClient: clientLogin,
-    getClient: clientGet
+    getClient: clientGet,
+    deleteClient: clientDelate,
+    listClient: clientList
 }

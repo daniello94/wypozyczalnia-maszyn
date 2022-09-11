@@ -26,7 +26,7 @@ const fileFilter = (req, file, cb) => {
 
 let upload = multer({ storage, fileFilter })
 
-router.post('/signup',upload.single('photo'),function(req,res){
+router.post('/signup', upload.single('photo'), function (req, res) {
 
     const name = req.body.name;
     const photo = req.file.filename;
@@ -34,7 +34,7 @@ router.post('/signup',upload.single('photo'),function(req,res){
     const role = req.body.role;
     const password = req.body.password;
     const lastName = req.body.lastName;
-    const phoneNumber= req.body.phoneNumber;
+    const phoneNumber = req.body.phoneNumber;
 
     const newEmployeeData = {
         name,
@@ -46,13 +46,13 @@ router.post('/signup',upload.single('photo'),function(req,res){
         phoneNumber
     };
 
-    employee.addEmployee(newEmployeeData,function(err, user){
-        if(err){
+    employee.addEmployee(newEmployeeData, function (err, user) {
+        if (err) {
             res.status(404);
             res.json({
-                error:"Employee not created"
+                error: "Employee not created"
             })
-        }else{
+        } else {
             res.json(user)
         }
     })
@@ -87,5 +87,31 @@ router.get('/:id', function (req, res) {
     })
 });
 
+router.delete('/delate/:id', function (req, res) {
+    employee.delateEmployee(req.params.id, function (err, data) {
+        if (err) {
+            res.status(404);
+            res.json({
+                error: "Employee not found"
+            })
+        } else {
+            res.json(data)
+        }
+    })
+});
 
-module.exports= router;
+router.post('/all', function (req, res) {
+    employee.listEmployee(function (err, users) {
+        if (err) {
+            res.status(404);
+            res.json({
+                error: "Employees not found"
+            });
+        } else {
+            res.json(users)
+        }
+    })
+});
+
+
+module.exports = router;

@@ -18,6 +18,7 @@ import MachinesAdd from "./routes/MachinesAdd";
 import VivesMachines from "./routes/VivesMachines";
 import VivesOrder from "./routes/VivesOrder";
 import Contact from "./routes/Contact";
+import ListData from "./routes/ListData";
 
 export default function App() {
   const [userData, setUser] = useState(
@@ -83,6 +84,16 @@ export default function App() {
             </li>
           )}
 
+          {userData && userData.user.role === 'admin' && (
+            <li>
+              <Link
+                className={style.myItm}
+                to="/list">
+                Użytkownicy serwisu
+              </Link>
+            </li>
+          )}
+
           {userData && userData.user.role === viveRole() && (
             <li>
               <Link
@@ -113,14 +124,14 @@ export default function App() {
             </li>
           )}
 
-            <li>
-              <Link
-                className={style.myItm}
-                to="/contact">
-                Kontakt
-              </Link>
-            </li>
-         
+          <li>
+            <Link
+              className={style.myItm}
+              to="/contact">
+              Kontakt
+            </Link>
+          </li>
+
           {userData && userData.user.role === viveRole() && (
             <li>
               <Link
@@ -176,6 +187,11 @@ export default function App() {
         <Route
           path="/machinesAdd"
           element={<MachinesAdd />
+          } />
+
+        <Route
+          path="/list"
+          element={<ListData />
           } />
 
         <Route
