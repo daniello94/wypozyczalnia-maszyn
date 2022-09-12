@@ -45,7 +45,7 @@ export default function VivesOrder() {
                 quanitity
             })
                 .then(() => {
-                    setStatus([])
+                    listMachines()
                     oneMachines(_id)
                 })
             const oderStan = "Aktywny"
@@ -54,7 +54,7 @@ export default function VivesOrder() {
                 oderStan
             })
                 .then(() => {
-                    setStatus([])
+                    listMachines()
                     oneMachines(_id)
 
                 })
@@ -71,7 +71,7 @@ export default function VivesOrder() {
             quanitity
         })
             .then(() => {
-                setStatus([])
+                listMachines()
                 oneMachines(_id)
             })
         const oderStan = "Zakończony"
@@ -80,7 +80,7 @@ export default function VivesOrder() {
             oderStan
         })
             .then(() => {
-                setStatus([])
+                listMachines()
                 oneMachines(_id)
 
             })
@@ -94,7 +94,7 @@ export default function VivesOrder() {
             oderStan
         })
             .then(() => {
-                setStatus([])
+                listMachines()
                 oneMachines(_id)
 
             })
@@ -242,7 +242,7 @@ export default function VivesOrder() {
                         </tbody>
                     </table>
                     <Button
-                        onClick={() => setResponseQuestion(status)}>
+                        onClick={() => setResponseQuestion('')}>
                         Wróć
                     </Button>
                 </div>
